@@ -42,7 +42,7 @@ Dispose of all objects when they are no longer needed:
 disposables.disposeAll();
 ```
 
-### Make custom class Disposable
+### Make custom class disposable
 
 Custom classes instances cannot be disposed of by using `disposeAll()` method by default.
 Luckily, there's an easy way to add such functionality to any class by `DisposableObject` mixin:
