@@ -1,7 +1,13 @@
 name: disposable_objects
 description: A Flutter package for reducing boilerplate code when disposing objects
 version: 1.0.0
-# homepage:
+homepage: https://github.com/sergioprot/disposable_objects
+repository: https://github.com/sergioprot/disposable_objects/tree/main
+issue_tracker: https://github.com/sergioprot/disposable_objects/issues
+topics:
+  - dispose
+  - disposable
+  - disposing
 
 environment:
   sdk: '>=3.1.5 <4.0.0'

@@ -1,27 +1,118 @@
-
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+A Flutter package that introduces a convenient way to dispose of objects.
 
 ## Features
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
-
-## Getting started
-
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+* `DisposableObject` mixin. Makes any your custom class, or a class which was implemented in another package, usable (and disposable) with this package
+* `disposeAll` method for `Iterable` that disposes of every item of that `Iterable`. The elements can be:
+  * `DisposableObject`, obviously
+  * `ChangeNotifier` and anything that extends or uses it as a mixin, e.g. `TextEditingController`, `FocusNode`, `ScrollController` and much more
+  * `Sink`, e.g. `StreamController`
+  * `StreamSubscription`
+  * `Timer`
+  * `AnimationEagerListenerMixin`, e.g. `AnimationController`
 
 ## Usage
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
+### Disposing of a list of objects
 
+Define objects that must be disposed later:
 ```dart
-const like = 'sample';
+final textEditingController = TextEditingController();
+final focusNode = FocusNode();
+final stream = StreamController.broadcast();
+final listener = someStream.listen(...);
+final timer = Timer.periodic(...);
+final animationController = AnimationController(...);
 ```
 
-## Additional information
+Put them all in an Iterable:
+```dart
+final disposables = [
+  textEditingController,
+  focusNode,
+  stream,
+  listener,
+  timer,
+  animationController,
+];
+```
 
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
+Dispose of all objects when they are no longer needed:
+```dart
+disposables.disposeAll();
+```
+
+### Make custom class Disposable
+
+Custom classes instances cannot be disposed of by using `disposeAll()` method by default.
+Luckily, there's an easy way to add such functionality to any class by `DisposableObject` mixin:
+
+```dart
+class DisposableTest with DisposableObject {
+  bool disposed = false; // or anything you need
+
+  @override
+  void disposeObject() {
+    disposed = true; // or anything you'd like to do
+  }
+}
+```
+
+Now `DisposableTest` objects can be disposed by `disposeAll` method:
+
+```dart
+final myDisposable = DisposableTest();
+...
+[
+  myDisposable,
+  ...
+].disposeAll();
+```
+
+Let's say you use [Dio](https://pub.dev/packages/dio) package for handling http requests. You might be using `CancelToken` objects to cancel http requests when you leave a page before http request is finished.
+Calling `disposeAll` method on list, where one of elements is `CancelToken` will lead to throwing `UnimplementedError`. But you can easily make a wrapper for `CancelToken` to make things working:
+
+```dart
+import 'package:dio/dio.dart';
+
+class CancelTokenDisposable extends CancelToken with DisposableObject {
+  @override
+  void disposeObject() {
+    cancel();
+  }
+}
+```
+
+Now `CancelTokenDisposable` instances can be disposed by `disposeAll` method:
+
+```dart
+class _MyWidgetState extends State<MyWidget> {
+  List _disposables = [];
+
+  CancelTokenDisposable cancelToken = CancelTokenDisposable();
+
+  @override
+  void initState() {
+    super.initState();
+    _disposables = [
+      cancelToken,
+      ...
+    ];
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    ...
+  }
+
+  @override
+  void dispose() {
+    _disposables.disposeAll();
+    super.dispose();
+  }
+}
+```
+
+## Contribution
+
+Please feel free to open an issue on GitHub, if you feel like this package misses some functionality required for your project.

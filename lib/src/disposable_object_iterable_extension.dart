@@ -6,7 +6,7 @@ import 'disposable_object.dart';
 
 /// Extension on [Iterable] that introduces [disposeAll] method.
 extension DisposableObjectIterableExtension<T> on Iterable<T> {
-  /// Disposes each element of this iterable.
+  /// Disposes of each element of this iterable.
   ///
   /// Calls
   /// * [ChangeNotifier.dispose] for [ChangeNotifier] items, like [FocusNode], [TextEditingController], etc.
@@ -19,7 +19,7 @@ extension DisposableObjectIterableExtension<T> on Iterable<T> {
       final void Function() disposeItem = switch (item) {
         DisposableObject() => () => item.disposeObject(),
         ChangeNotifier() => () => item.dispose(),
-        StreamController() => () => item.close(),
+        Sink() => () => item.close(),
         StreamSubscription() => () => item.cancel(),
         Timer() => () => item.cancel(),
         AnimationEagerListenerMixin() => () => item.dispose(),
