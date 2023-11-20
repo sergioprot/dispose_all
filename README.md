@@ -15,7 +15,7 @@ A Flutter package that introduces a convenient way to dispose of objects.
 
 ### Disposing of a list of objects
 
-Define objects that must be disposed later:
+Define objects that must be disposed of later:
 ```dart
 final textEditingController = TextEditingController();
 final focusNode = FocusNode();
@@ -58,7 +58,7 @@ class DisposableTest with DisposableObject {
 }
 ```
 
-Now `DisposableTest` objects can be disposed by `disposeAll` method:
+Now `DisposableTest` objects can be disposed of by `disposeAll` method:
 
 ```dart
 final myDisposable = DisposableTest();
@@ -70,7 +70,7 @@ final myDisposable = DisposableTest();
 ```
 
 Let's say you use [Dio](https://pub.dev/packages/dio) package for handling http requests. You might be using `CancelToken` objects to cancel http requests when you leave a page before http request is finished.
-Calling `disposeAll` method on list, where one of elements is `CancelToken` will lead to throwing `UnimplementedError`. But you can easily make a wrapper for `CancelToken` to make things working:
+Calling `disposeAll` method on a list, where one of the elements is `CancelToken` will lead to throwing `UnimplementedError`. But you can easily make a wrapper for `CancelToken` to make things working:
 
 ```dart
 import 'package:dio/dio.dart';
@@ -83,7 +83,7 @@ class CancelTokenDisposable extends CancelToken with DisposableObject {
 }
 ```
 
-Now `CancelTokenDisposable` instances can be disposed by `disposeAll` method:
+Now `CancelTokenDisposable` instances can be disposed of by `disposeAll` method:
 
 ```dart
 class _MyWidgetState extends State<MyWidget> {
