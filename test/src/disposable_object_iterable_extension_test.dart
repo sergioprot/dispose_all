@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:disposable_objects/disposable_objects.dart';
+import 'package:dispose_all/dispose_all.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -33,7 +33,6 @@ void main() {
   });
 
   test('Unimplemented error', () {
-    expect(
-        () => [Container()].disposeAll(), throwsA(isA<UnimplementedError>()));
+    expect(() => [Container()].disposeAll(), throwsA(isA<UnimplementedError>()));
   });
 }

@@ -1,8 +1,8 @@
-import 'disposable_object_iterable_extension.dart';
+import 'dispose_all_extension.dart';
 
 /// A mixin for disposable objects.
 ///
-/// This mixin is useful, when you want to use [DisposableObjectIterableExtension.disposeAll] for custom classes or for classes from other packages.
+/// This mixin is useful, when you want to use [DisposeAllExtension.disposeAll] for custom classes or for classes from other packages.
 /// Example: (Popular HTTP networking package Dio's CancelToken):
 /// ```
 /// import 'package:dio/dio.dart';
@@ -17,7 +17,7 @@ import 'disposable_object_iterable_extension.dart';
 mixin DisposableObject {
   /// Disposes of object.
   ///
-  /// This method will be called in [DisposableObjectIterableExtension.disposeAll].
+  /// This method will be called in [DisposeAllExtension.disposeAll].
   /// You must implement an actual disposing part.
   void disposeObject();
 }

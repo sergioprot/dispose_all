@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:disposable_objects/disposable_objects.dart';
+import 'package:dispose_all/dispose_all.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -25,7 +25,7 @@ class FirstPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('disposable_objects'),
+        title: const Text('dispose_all'),
       ),
       body: Center(
         child: ElevatedButton(
@@ -77,7 +77,7 @@ class _SecondPageState extends State<SecondPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('disposable_objects'),
+        title: const Text('dispose_all'),
       ),
       body: Column(
         children: [

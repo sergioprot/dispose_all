@@ -1,3 +1,3 @@
 # example
 
-disposable_objects package usage example.
+dispose_all package usage example.

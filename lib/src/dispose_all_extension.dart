@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'disposable_object.dart';
 
 /// Extension on [Iterable] that introduces [disposeAll] method.
-extension DisposableObjectIterableExtension<T> on Iterable<T> {
+extension DisposeAllExtension<T> on Iterable<T> {
   /// Disposes of each element of this iterable.
   ///
   /// Calls
@@ -23,8 +23,8 @@ extension DisposableObjectIterableExtension<T> on Iterable<T> {
         StreamSubscription() => () => item.cancel(),
         Timer() => () => item.cancel(),
         AnimationEagerListenerMixin() => () => item.dispose(),
-        Object() => throw UnimplementedError(
-            'Dispose action is not implemented in disposable_objects for ${item.runtimeType}'),
+        Object() =>
+          throw UnimplementedError('Dispose action is not implemented in dispose_all for ${item.runtimeType}'),
       };
       disposeItem();
     }

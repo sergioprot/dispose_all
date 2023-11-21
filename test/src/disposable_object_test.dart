@@ -1,4 +1,4 @@
-import 'package:disposable_objects/disposable_objects.dart';
+import 'package:dispose_all/dispose_all.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 class DisposableTest with DisposableObject {
