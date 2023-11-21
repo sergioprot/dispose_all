@@ -23,8 +23,8 @@ extension DisposeAllExtension<T> on Iterable<T> {
         StreamSubscription() => () => item.cancel(),
         Timer() => () => item.cancel(),
         AnimationEagerListenerMixin() => () => item.dispose(),
-        Object() =>
-          throw UnimplementedError('Dispose action is not implemented in dispose_all for ${item.runtimeType}'),
+        Object() => throw UnimplementedError(
+            'Dispose action is not implemented in dispose_all for ${item.runtimeType}'),
       };
       disposeItem();
     }

@@ -33,6 +33,7 @@ void main() {
   });
 
   test('Unimplemented error', () {
-    expect(() => [Container()].disposeAll(), throwsA(isA<UnimplementedError>()));
+    expect(
+        () => [Container()].disposeAll(), throwsA(isA<UnimplementedError>()));
   });
 }
